@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LOGIN</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>LOGIN</h1>
+    <form action="/login" method="POST">
+      <label for="user_id">ID:</label><br>
+      <input type="text" id="user_id" name="user_id" required><br>
+      <label for="user_password">PASSWORD:</label><br>
+      <input type="password" id="user_password" name="user_password" required><br>
+      <input type="submit" value="로그인">
+    </form>
+    <% if (message) { %>
+      <p><%= message %></p>
+    <% } %>
+
+    <button><a href='/'>HOME</a></button>
+    
+  </body>
+</html>

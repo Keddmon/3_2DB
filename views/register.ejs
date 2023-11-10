@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>REGISTER</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>REGISTER</h1>
+
+    <form action="/register" method="POST">
+        <label for="user_id">ID:</label><br>
+        <input type="text" id="user_id" name="user_id" required><br>
+        <label for="user_password">PASSWORD:</label><br>
+        <input type="text" id="user_password" name="user_password" required><br>
+        <label for="user_name">이름:</label><br>
+        <input type="text" id="user_name" name="user_name" required><br>
+        <label for="user_address">주소:</label><br>
+        <input type="text" id="user_address" name="user_address" required><br>
+        <label for="user_number">번호:</label><br>
+        <input type="text" id="user_number" name="user_number" required><br>
+        <input type="submit" value="회원가입">
+    </form>
+    <h1>
+      <% if (message) { %>
+        <p><%= message %></p>
+      <% } %>
+    </h1>
+    <button><a href="/">HOME</a></button>
+  </body>
+</html>

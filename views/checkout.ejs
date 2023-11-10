@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CHECKOUT</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>CHECKOUT</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>MENU</th>
+                <th>QUANTITY</th>
+                <th>PRICE</th>
+                <th>SUM</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% cart.forEach(function(item) { %>
+            <tr>
+                <td><%= item.menu_name %></td>
+                <td><%= item.cart_list_quantity %></td>
+                <td><%= item.menu_price %></td>
+                <td><%= item.menu_price * item.cart_list_quantity %></td>
+            </tr>
+            <% }); %>
+            <form action="/order" method="POST">
+                <select name="paymentMethod">
+                    <option value="creditCard">신용카드</option>
+                    <option value="cash">현금</option>
+                    <option value="check">수표</option>
+                </select>
+                <button type="submit">ORDER</button>
+            </form>
+            <button><a href="cart">CART</a></button>
+            <button><a href="/">HOME</a></button>
+            <button><a href="menu">MENU</a></button>
+        </tbody>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DETAILS</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>DETAILS</h1>
+
+    <button><a href='/'>HOME</a></button>
+    <button><a href="/menu">MENU</a></button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>MENU</th>
+                <th>PRICE</th>
+                <th>CATEGORY</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% var menu_detail = data %>
+            <tr>
+                <td><%= menu_detail[0].menu_id%></td>
+                <td><%= menu_detail[0].menu_name%></td>
+                <td><%= menu_detail[0].menu_price%></td>
+                <td><%= menu_detail[0].menu_item%></td>
+            </tr>
+        </tbody>
+    </table>
+    <body>
+      <form action="/cart" method="POST">
+        <input type="hidden" name="menu_id" value="<%= menu_detail[0].menu_id %>">
+        <input type="number" name="quantity" min="1" max="99" required>
+        <input type="hidden" name="redirect" id="redirect-value">
+        <button type="submit" onclick="setRedirect('cart')">BUY</button>
+        <button type="submit" onclick="setRedirect('menu')">INSERT CART</button>
+      </form>
+    </body>
+    <script>
+      function setRedirect(value) {
+        document.getElementById('redirect-value').value = value;
+      }
+    </script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MENU</title>
+        <link rel='stylesheet' href="/stylesheets/style.css" />
+    </head>
+    <body>
+        <h1>MENU</h1>
+        <h1>
+            <button><a href="/">HOME</a></button>
+            <button><a href="/cart">CART</a></button>
+        </h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>MENU</th>
+                    <th>PRICE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% var menu = data %>
+                <% for(var i = 0 ; i < menu.length ; i++ ) { %>
+                    <tr>
+                        <td><%= menu[i].menu_name%></td>
+                        <td><%= menu[i].menu_price%></td>
+                        <td><button><a href="/menu/<%= menu[i].menu_id %>">DETAIL</a></button></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </body>
+</html>

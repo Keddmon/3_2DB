@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>coffeestore</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>20181597 coffeestore</h1>
+
+    <% if (user) { %>
+      <button><a href='/logout'>LOGOUT</a></button>
+      <button><a href='/register'>RESIGTER</a></button>
+      <button><a href='/cart'>CART</a></button>
+    <% } else { %>
+      <button><a href='/login'>LOGIN</a></button>
+      <button><a href='/register'>REGISTER</a></button>
+    <% } %>
+    <button><a href='/menu'>MENU</a></button>
+    <button><a href="/user">USER</a></button>
+  </body>
+</html>

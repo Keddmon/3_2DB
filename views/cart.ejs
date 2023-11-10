@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CART</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>CART</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>MENU</th>
+                <th>QUANTITY</th>
+                <th>PRICE</th>
+                <th>SUM</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% cart.forEach(function(item) { %>
+            <tr>
+                <td><%= item.menu_name %></td>
+                <form action="/cart" method="post">
+                    <td>
+                        <input type="number" name="quantity_<%= item.menu_id %>" value="<%= Number(item.cart_list_quantity) %>" min="1">
+                        <button type="submit" formaction="/cart/<%= item.menu_id %>">UPDATE</button>
+                    </td>
+                <td><%= item.menu_price %></td>
+                <td><%= item.menu_price * item.cart_list_quantity %></td>
+                <td><button type="submit" formaction="/delete_item/<%= item.menu_id %>">DELETE</button></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <h2>Total: <%= total %>
+    <button><a href="/checkout">CHECKOUT</a></button>
+    </h2>
+    <button><a href="/">HOME</a></button>
+    <button><a href="/menu">MENU</a></button>
+  </body>
+</html>
