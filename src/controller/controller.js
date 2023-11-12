@@ -22,12 +22,17 @@ exports.user = async(req, res) => {
 // 메뉴보기
 exports.menu = async(req, res) => {
     try {
-        const q2 = 'SELECT * FROM menu';
-
-        const result = await pool.query(q2);
-        console.log(result[0]);
-
-        res.render("menu", {data:result[0]});
+        const menuName = req.query.menu_name;
+        let q2;
+        if (menuName) {
+            q2 = 'SELECT * FROM menu WHERE menu_name LIKE ?';
+            const result = await pool.query(q2, ['%' + menuName + '%']);
+            res.render("menu", {data: result[0], searchData: result[0]});
+        } else {
+            q2 = 'SELECT * FROM menu';
+            const result = await pool.query(q2);
+            res.render("menu", {data: result[0], searchData: result[0]});
+        }
     } catch (error) {
         res.render("menu");
     }
@@ -239,7 +244,7 @@ exports.order = async (req, res) => {
         const totalResult = await pool.query(totalQuery, [userId]);
 
         // 주문 생성
-        const orderQuery = 'INSERT INTO order_ (user_id, order_payment, order_total_price, order_time) VALUES (?, ?, ?, NOW())';
+        const orderQuery = 'INSERT INTO order_ (user_id, order_payment, order_total_price, order_date) VALUES (?, ?, ?, NOW())';
         const orderResult = await pool.query(orderQuery, [userId, paymentMethod, totalResult[0][0].total]);
         const orderId = orderResult[0].insertId;
         console.log(orderId);
@@ -266,4 +271,15 @@ exports.order = async (req, res) => {
     }
 };
 
+exports.searchMenu = async(req, res) => {
+    try {
+        const menuName = req.query.menu_name;
+        const q5 = 'SELECT * FROM menu WHERE menu_name LIKE ?';
 
+        const result = await pool.query(q5, ['%' + menuName + '%']);
+
+        res.render("menu", {searchData: result[0]});
+    } catch (error) {
+        res.render("menu");
+    }
+};

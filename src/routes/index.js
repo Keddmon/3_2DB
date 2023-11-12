@@ -48,3 +48,6 @@ module.exports = router;
 router.get('/order_complete', function(req, res) {
     res.render('/order_complete');
 });
+
+/* searchMenu */
+router.get('/search', indexCtrl.searchMenu);
