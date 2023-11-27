@@ -6,20 +6,26 @@
     </head>
     <body>
         <h1>MENU</h1>
+        <hr>
         <h1>
             <button><a href="/">HOME</a></button>
-            <button><a href="/cart">CART</a></button>
+            <button><a href="/cart">CART</button>
         </h1>
+        <hr>
         <form action="/search" method="get">
             <input type="text" name="menu_name" placeholder="INSERT MENU NAME" required>
             <button type="submit">SEARCH</button>
             <button><a href="/menu">ALL</a></button>
         </form>
+        <hr>
         <table>
             <thead>
                 <tr>
                     <th>MENU</th>
                     <th>PRICE</th>
+                    <th>REPRESENTATIVE</th>
+                    <th>RECOMMEND</th>
+                    <th>STATUS</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,12 +35,33 @@
                         <tr>
                         <td><%= menu.menu_name%></td>
                         <td><%= menu.menu_price%></td>
-                        <td><button><a href="/menu/<%= menu.menu_id %>">DETAIL</a></button></td>
+                        <td>
+                            <% if (menu.one_menu === 1) { %>
+                                <p> O </p>
+                            <% } else { %>
+                                <p> </p>
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if (menu.recommend_menu === 1) { %>
+                                <p> O </p>
+                            <% } else { %>
+                                <p> </p>
+                            <% } %>
+                        </td>
+                        <td><%= menu.isAvailable ? 'AVAILABLE' : 'SOLD OUT'%></td>
+                        <td>
+                            <% if (menu.isAvailable) { %>
+                                <button><a href="/menu/<%= menu.menu_id %>">DETAIL</a></button>
+                            <% } else { %>
+                                <button disabled>SOLD OUT</button>
+                            <% } %>
+                        </td>
                     </tr>
                 <% }) %>
             <% } else { %>
                 <tr>
-                    <td colspan="3">NO RESULT</td>
+                    <td colspan="6">NO RESULT</td>
                 </tr>
             <% } %>
             </tbody>

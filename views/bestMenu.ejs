@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BEST MENU</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>BEST MENU</h1>
+    <h1>베스트 메뉴 랭킹</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>RANKING</th>
+                <th>MENU NAME</th>
+                <th>VOLUME</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% if (rankings.length > 0) { %>
+            <% for (let i = 0; i < rankings.length; i++) { %>
+                <tr>
+                    <td><%= i + 1 %></td>
+                    <td><%= rankings[i].menu_name %></td>
+                    <td><%= rankings[i].order_count %></td>
+                </tr>
+            <% } %>
+        <% } else { %>
+            <tr>
+                <td colspan="3">NO RESULT</td>
+            </tr>
+        <% } %>
+        
+        </tbody>
+    </table>
+    <hr>
+    <button><a href='/'>MAIN</a></button>
+</body>
+</html>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>coffeestore</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>20181597 coffeestore</h1>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>ADDRESS</th>
+                <th>NUMBER</th>
+                <th>REWARD POINTS</th>
+                <th>ADMIN?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% var user = data %>
+            <% for(var i = 0 ; i < user.length ; i++ ) { %>
+                <tr>
+                    <td><%= user[i].user_id %></td>
+                    <td><%= user[i].user_name %></td>
+                    <td><%= user[i].user_address %></td>
+                    <td><%= user[i].user_number %></td>
+                    <td><%= user[i].reward_points %></td>
+                    <td><%= user[i].is_admin %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+  </body>
+</html>

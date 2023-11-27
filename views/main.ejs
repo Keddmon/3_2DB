@@ -6,16 +6,32 @@
   </head>
   <body>
     <h1>20181597 coffeestore</h1>
-
+    <hr>
     <% if (user) { %>
+      <h2>USER</h2>
       <button><a href='/logout'>LOGOUT</a></button>
       <button><a href='/register'>RESIGTER</a></button>
       <button><a href='/cart'>CART</a></button>
+      <button><a href='/reward_status'>REWARD_STATUS</a></button>
+      <button><a href='/menu'>MENU</a></button>
+      <button><a href='/bestMenu'>BESTMENU</a></button>
+      
+      <% if (user.is_admin) { %>
+        <hr>
+        <h2>ADMIN</h2>
+        <button><a href='/admin/menu_management'>MENU MANAGEMENT</a></button>
+        <button><a href='/admin/ingredient_management'>INGREDIENT MANAGEMENT</a></button>
+        <button><a href='/admin/users'>USER LIST</a></button>
+        <button><a href='/admin/orders'>ORDER LIST</a></button>
+      <% } %>
+      
     <% } else { %>
       <button><a href='/login'>LOGIN</a></button>
       <button><a href='/register'>REGISTER</a></button>
+      <button><a href='/menu'>MENU</a></button>
     <% } %>
-    <button><a href='/menu'>MENU</a></button>
-    <button><a href="/user">USER</a></button>
+    <hr>
+</body>
+</html>
   </body>
 </html>

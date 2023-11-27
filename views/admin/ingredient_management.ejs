@@ -1,0 +1,142 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>INGREDIENT MANAGEMENT</title>
+      <link rel='stylesheet' href="/stylesheets/style.css" />
+    </head>
+    <script>
+      function orderIngredient(ingredient_id, supplier_id, ingredient_order_quantity) {
+        const displayedQuantity = document.getElementById('quantity-' + ingredient_id).value;
+        const actualQuantity = displayedQuantity / ingredient_order_quantity;
+        fetch('/admin/ingredient_management', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ingredient_id: ingredient_id,
+            supplier_id: supplier_id,
+            supply_list_amount: actualQuantity,
+          }),
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Order successful!');
+            location.reload();
+          } else {
+            alert('Order failed: ' + data.message);
+          }
+        });
+      }
+    </script>
+      
+    <body>
+      <h1>INGREDIENT MANAGEMENT</h1>
+      <hr>
+      <h1>
+          <button><a href="/">HOME</a></button>
+      </h1>
+      <hr>
+      <!-- 공급업체와 재료 정보 -->
+      <table>
+        <thead>
+          <tr>
+            <th>SUPPLIER NAME</th>
+            <th>LIST</th>
+            <th>PRICE PER UNIT</th>
+            <th>ORDER</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% suppliers.forEach(function(supplier) { %>
+            <tr>
+              <td><%= supplier.supplier_name %></td>
+              <td>
+                <ul>
+                  <% supplier.ingredients.forEach(function(ingredient) { %>
+                    <li><%= ingredient.ingredient_name + " (" + ingredient.ingredient_order_quantity + " " + ingredient.ingredient_order_unit + ")" %></li>
+                  <% }) %>                  
+                </ul>
+              </td>
+              <td>
+                <ul>
+                <% supplier.ingredients.forEach(function(ingredient) { %>
+                    <li><%= ingredient.supply_price_per_unit %>WON</li>
+                <% }) %>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <% supplier.ingredients.forEach(function(ingredient) { %>
+                    <li>
+                    <input type="number" id="quantity-<%= ingredient.ingredient_id %>" min="<%= ingredient.ingredient_order_quantity %>" step="<%= ingredient.ingredient_order_quantity %>" placeholder="<%= ingredient.ingredient_order_quantity %>">
+                    <button onclick="orderIngredient('<%= ingredient.ingredient_id %>', '<%= supplier.supplier_id %>', '<%= ingredient.ingredient_order_quantity %>')">ORDER</button>
+                    </li>
+                  <% }) %>
+                </ul>
+              </td>
+            </tr>
+          <% }) %>        
+      </tbody>
+      </table>
+      <hr>
+      <table>
+        <thead>
+          <tr>
+            <th>INGREDIENTS</th>
+            <th>STOCK</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% var ingredientsStock = {}; %>
+          <% var ingredientsUnit = {}; %>
+          <% data.forEach(function(menu) { %>
+            <% if (menu.ingredients) { %>
+              <% menu.ingredients.forEach(function(ingredient) { %>
+                <% if (!ingredientsStock[ingredient.ingredient_name]) { %>
+                  <% ingredientsStock[ingredient.ingredient_name] = ingredient.ingredient_stock; %>
+                  <% ingredientsUnit[ingredient.ingredient_name] = ingredient.ingredient_order_unit; %>
+                <% } %>
+              <% }) %>
+            <% } %>
+          <% }) %>
+          <% for (var ingredient in ingredientsStock) { %>
+            <tr>
+              <td><%= ingredient %></td>
+              <td>
+                <ul>
+                  <li><%= ingredientsStock[ingredient] %>
+                    <%= ingredientsUnit[ingredient] %></li>
+                </ul>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <hr>
+      <h2>ORDER HISTORY</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ORDER ID</th>
+            <th>Ingredient ID</th>
+            <th>Supplier ID</th>
+            <th>Quantity</th>
+            <th>Delivery Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orderHistory.forEach(function(order) { %>
+            <tr>
+              <td><%= order.supply_list_id %></td>
+              <td><%= order.ingredient_id %></td>
+              <td><%= order.supplier_id %></td>
+              <td><%= order.supply_list_amount %></td>
+              <td><%= order.delivery_date %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </body>
+  </html>

@@ -7,6 +7,18 @@
   <body>
     <h1>ORDER COMPLETE</h1>
     <p>ORDER ID: <%= orderId %></p>
-    <button><a href='/'>HOME</a></button>
+
+    <!-- 주문 상세 정보 표시 -->
+    <% orderDetails.forEach(item => { %>
+      <p>MENU: <%= item.menuName %></p>
+      <p>QUANTITY: <%= item.quantity %></p>
+      <p>PRICE: <%= item.price - usedRewardPoints %></p>
+    <% }) %>
+
+    <!-- 사용한 적립금과 남은 적립금 표시 -->
+    <p>USED REWARD POINTS: <%= usedRewardPoints %></p>
+    <p>REMAINING REWARD POINTS: <%= remainingRewardPoints %></p>
+    <p>REMAINING REWARD STAMPS: <%= remainingRewardStamps %></p>
+    <button><a href="/">HOME</a></button>
   </body>
 </html>

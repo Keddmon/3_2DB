@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>REWARD</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>REWARD</h1>
+    <button><a href='/'>HOME</a></button>
+    <p>REWARD POINTS: <%= rewardStatus.reward_points %> (WON)</p>
+    <p>REWARD STAMPS: <%= rewardStatus.reward_stamps %></p>
+    <h2>Reward History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>DATE</th>
+                <th>DESCRIPTION</th>
+                <th>Reward Points</th>
+                <th>Reward Stamps</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% rewardHistory.forEach(function(item){ %>
+            <tr>
+                <td><%= item.history_date %></td>
+                <td><%= item.description %></td>
+                <td><%= item.reward_point %></td>
+                <td><%= item.reward_stamp %></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+  </body>
+</html>

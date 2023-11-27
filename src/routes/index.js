@@ -5,8 +5,8 @@ const indexCtrl = require('../controller/controller.js');
 /* main page */
 router.get('/', indexCtrl.main);
 
-/* user page */
-router.get('/user', indexCtrl.user);
+
+router.get('/bestMenu', indexCtrl.bestMenu);
 
 /* menu page */
 router.get('/menu', indexCtrl.menu);
@@ -35,14 +35,12 @@ router.post('/cart', indexCtrl.insertCart);
 router.post('/cart/:menu_id', indexCtrl.updateCart);
 router.post('/delete_item/:menu_id', indexCtrl.deleteCart);
 
-
 /* checkout page */
 router.get('/checkout', indexCtrl.checkout);
 router.post('/checkout', indexCtrl.order);
 
 /* order */
 router.post('/order', indexCtrl.order);
-module.exports = router;
 
 /* order complete */
 router.get('/order_complete', function(req, res) {
@@ -51,3 +49,22 @@ router.get('/order_complete', function(req, res) {
 
 /* searchMenu */
 router.get('/search', indexCtrl.searchMenu);
+
+/* reward status */
+router.get('/reward_status', indexCtrl.getRewardStatus);
+
+/* use reward points */
+router.post('/useRewardPoints', indexCtrl.useRewardPoints);
+
+/* admin page */
+router.get('/admin/users', indexCtrl.viewUsers);
+router.get('/admin/orders', indexCtrl.viewOrders);
+router.get('/admin/menu_management', indexCtrl.menuManagement);
+router.post('/admin/menu/:menu_id/recommend', indexCtrl.setRecommendMenu);
+router.post('/admin/menu', indexCtrl.addMenu);
+router.post('/admin/menu/:menu_id', indexCtrl.deleteMenu);
+router.get('/admin/ingredient_management', indexCtrl.ingredientManagement);
+router.post('/admin/ingredient_management', indexCtrl.orderIngredient);
+
+
+module.exports = router;

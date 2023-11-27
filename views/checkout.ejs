@@ -3,9 +3,27 @@
   <head>
     <title>CHECKOUT</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script>
+        window.onload = function() {
+            document.getElementById("applyPoints").addEventListener("click", function() {
+                var usedPoints = parseInt(document.getElementById("usedPoints").value);
+                var total = parseInt(document.getElementById("total").textContent);
+                if (!isNaN(usedPoints)) {
+                    total -= usedPoints;
+                    document.getElementById("total").textContent = total.toString();
+                    document.getElementById("totalPrice").value = total.toString();
+                }
+            });
+        }
+    </script>
   </head>
   <body>
     <h1>CHECKOUT</h1>
+    <hr>
+    <button><a href="cart">CART</a></button>
+    <button><a href="/">HOME</a></button>
+    <button><a href="menu">MENU</a></button>
+    <hr>
     <table>
         <thead>
             <tr>
@@ -30,12 +48,19 @@
                     <option value="cash">현금</option>
                     <option value="check">수표</option>
                 </select>
+                <hr>
+                <p>보유 스탬프: <%= rewardStamps %></p>
+                <p>보유 적립금: <%= rewardPoints %></p>
+                <hr>
+                <input type="number" id="usedPoints" name="usedPoints" min="0" max="<%= rewardPoints %>", step="1000" placeholder="USE POINTS (1000 WON)" <%= rewardStamps < 10 ? "disabled" : "" %>>
+                <button type="button" id="applyPoints">APPLY POINTS</button>
+                <input type="hidden" id="totalPrice" name="totalPrice" value="<%= total %>">
+                <input type="checkbox" name="useStamps" value="true"> USE STAMPS (10)
+                <hr>
                 <button type="submit">ORDER</button>
             </form>
-            <button><a href="cart">CART</a></button>
-            <button><a href="/">HOME</a></button>
-            <button><a href="menu">MENU</a></button>
         </tbody>
     </table>
+    <h2>Total: <span id="total"><%= total %></span></h2>
   </body>
 </html>
